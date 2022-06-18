@@ -2,6 +2,7 @@
 import url from "./FM files/data.json";
 import { reactive, onMounted } from "vue";
 import AddComment from "./components/AddComment.vue";
+import PostComponent from "./components/PostComponent.vue";
 
 onMounted(() => {
   console.log("mounted");
@@ -10,6 +11,9 @@ onMounted(() => {
 });
 </script>
 
-<template><AddComment :image="url.currentUser.image.webp" /></template>
+<template>
+  <AddComment :image="url.currentUser.image.webp" />
+  <PostComponent />
+</template>
 
 <style></style>
