@@ -7,10 +7,9 @@
         placeholder="Add a comment..."
       ></textarea>
     </div>
-    <div class="button-container">
-      <img :src="props.image" alt="" />
-      <button>SEND</button>
-    </div>
+
+    <img :src="props.image" alt="" />
+    <button>SEND</button>
   </div>
 </template>
 
@@ -30,6 +29,10 @@ console.log(props.image);
   margin: 1rem auto
   border-radius:10px
   padding: 1rem
+  display: grid
+  grid-template-columns: 1fr 7fr 2fr
+  grid-template-rows: 3fr 2fr
+  row-gap: 1rem
 
 
 
@@ -38,6 +41,8 @@ console.log(props.image);
   padding: 1rem
   font-size: 1.2rem
   border-radius: 10px
+  grid-column: 1/4
+
   .inputText
     background-color: transparent
     resize: none
@@ -45,21 +50,27 @@ console.log(props.image);
     border: none
     width: 100%
 
-.button-container
-  display: flex
-  justify-content: space-between
-  align-items: center
-  margin-top: 1rem
+img
+  width: 40px
+  height: 40px
+  justify-self: center
+  align-self: center
 
-  img
-    width: 40px
-    height: 40px
+button
+  padding: 1rem 2rem
+  background-color: hsl(238, 40%, 52%)
+  border: none
+  border-radius: 10px
+  color: hsl(0, 0%, 100%)
+  font-weight: 500
+  grid-column: 3/4
+  justify-self: center
+  align-self: center
 
-  button
-    padding: 1rem 2rem
-    background-color: hsl(238, 40%, 52%)
-    border: none
-    border-radius: 15px
-    color: hsl(0, 0%, 100%)
-    font-weight: 500
+
+
+@media(min-width:800px)
+  .input-container
+    grid-column: 2/3
+    grid-row: 1/3
 </style>
