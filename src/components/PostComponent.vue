@@ -10,7 +10,7 @@
     </p>
 
     <div class="counter">
-      <button>
+      <button @click="$emit('addCounter', props.id)">
         <img src="images\icon-plus.svg" alt="" />
       </button>
       <p>{{ props.score }}</p>
@@ -18,7 +18,17 @@
         <img src="images\icon-minus.svg" alt="" />
       </button>
     </div>
-    <p class="action"><img src="images\icon-reply.svg" alt="" />Reply</p>
+    <button v-if="props.name !== 'juliusomo'" class="action">
+      <img src="images\icon-reply.svg" alt="" />Reply
+    </button>
+    <div v-else class="delete-edit">
+      <button class="action delete">
+        <img src="images\icon-delete.svg" alt="" />Delete
+      </button>
+      <button class="action">
+        <img src="images\icon-edit.svg" alt="" />Edit
+      </button>
+    </div>
   </div>
   <div class="replySection" v-if="props.replies !== null">
     <div class="vl">
@@ -30,12 +40,14 @@
         :date="reply.createdAt"
         :score="reply.score"
         :content="reply.content"
+        @addCounter="addCounter($event)"
       />
     </div>
   </div>
 </template>
 
 <script setup>
+defineEmits(["addCounter"]);
 const props = defineProps({
   name: String,
   image: String,
@@ -43,6 +55,7 @@ const props = defineProps({
   score: Number,
   content: String,
   replies: Array,
+  id: Number,
 });
 </script>
 <style scoped lang="sass">
@@ -121,7 +134,17 @@ const props = defineProps({
   grid-column: 2/4
   align-self: center
   justify-self: right
-
+  border: none
+  background: inherit
+  cursor: pointer
+.delete
+  color: hsl(358, 79%, 66%)
+.delete-edit
+  display: flex
+  align-items: center
+  justify-content: end
+  gap: 1rem
+  grid-column: 2/4
 
 .replySection
   margin-inline: auto
@@ -166,4 +189,7 @@ const props = defineProps({
   .vl
     margin-left: 30px
     padding-left:30px
+
+  .delete-edit
+    grid-column: 3/4
 </style>

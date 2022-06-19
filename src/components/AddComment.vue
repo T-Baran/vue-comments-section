@@ -5,20 +5,34 @@
         class="inputText"
         rows="3"
         placeholder="Add a comment..."
+        v-model="state.text"
       ></textarea>
     </div>
 
     <img :src="props.image" alt="" />
-    <button>SEND</button>
+    <button
+      @click="
+        $emit('addPost', state.text);
+        state.text = '';
+      "
+    >
+      SEND
+    </button>
   </div>
 </template>
 
 <script setup>
+import { reactive } from "vue";
+
+defineEmits(["addPost"]);
+
 const props = defineProps({
   image: String,
 });
 
-console.log(props.image);
+const state = reactive({
+  text: "",
+});
 </script>
 
 <style scoped lang="sass">
