@@ -1,28 +1,8 @@
-<template>
-  <div class="main-container">
-    <div class="input-container">
-      <textarea
-        class="inputText"
-        rows="3"
-        placeholder="Add a comment..."
-        v-model="state.text"
-      ></textarea>
-    </div>
-
-    <img :src="props.image" alt="" />
-    <button
-      @click="
-        $emit('addPost', state.text);
-        state.text = '';
-      "
-    >
-      SEND
-    </button>
-  </div>
-</template>
-
 <script setup>
 import { reactive } from "vue";
+import { useCurrentUserStore } from "../store/currentUser";
+
+const currentUserStore = useCurrentUserStore();
 
 defineEmits(["addPost"]);
 
@@ -34,6 +14,29 @@ const state = reactive({
   text: "",
 });
 </script>
+
+<template>
+  <div class="main-container">
+    <div class="input-container">
+      <textarea
+        class="inputText"
+        rows="3"
+        placeholder="Add a comment..."
+        v-model="state.text"
+      ></textarea>
+    </div>
+
+    <img :src="currentUserStore.getImage(currentUserStore.image.webp)" alt="" />
+    <button
+      @click="
+        $emit('addPost', state.text);
+        state.text = '';
+      "
+    >
+      SEND
+    </button>
+  </div>
+</template>
 
 <style scoped lang="sass">
 

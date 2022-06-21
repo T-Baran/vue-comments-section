@@ -1,66 +1,58 @@
+<script setup>
+import { useCommentsStore } from "../store/comments";
+import { reactive } from "vue";
+
+defineEmits(["addCounter"]);
+
+const commentsStore = useCommentsStore();
+
+const state = reactive({
+  wasAdded: false,
+});
+
+const props = defineProps({
+  comment: Object,
+});
+console.log(state.wasAdded);
+</script>
+
 <template>
   <div class="main-container">
     <div class="top-container">
-      <img :src="props.image" alt="" />
-      <p class="name">{{ props.name }}</p>
-      <p class="date">{{ props.date }}</p>
+      <img :src="commentsStore.getImage(props.comment.user.image.png)" alt="" />
+      <p class="name">{{ props.comment.user.username }}</p>
+      <p class="date">{{ props.comment.createdAt }}</p>
     </div>
     <p class="text">
-      {{ props.content }}
+      {{ props.comment.content }}
     </p>
 
     <div class="counter">
-      <button @click="$emit('addCounter', props.id)">
-        <img src="images\icon-plus.svg" alt="" />
+      <button @click="commentsStore.addCounter(props.comment.id)">
+        <img src="\src\images\icon-plus.svg" alt="" />
       </button>
-      <p>{{ props.score }}</p>
+      <p>{{ props.comment.score }}</p>
       <button>
-        <img src="images\icon-minus.svg" alt="" />
+        <img src="\src\images\icon-minus.svg" alt="" />
       </button>
     </div>
     <button v-if="props.name !== 'juliusomo'" class="action">
-      <img src="images\icon-reply.svg" alt="" />Reply
+      <img src="\src\images\icon-reply.svg" alt="" />Reply
     </button>
     <div v-else class="delete-edit">
       <button class="action delete">
-        <img src="images\icon-delete.svg" alt="" />Delete
+        <img src="\src\images\icon-delete.svg" alt="" />Delete
       </button>
       <button class="action">
-        <img src="images\icon-edit.svg" alt="" />Edit
+        <img src="\src\images\icon-edit.svg" alt="" />Edit
       </button>
-    </div>
-  </div>
-  <div class="replySection" v-if="props.replies !== null">
-    <div class="vl">
-      <PostComponent
-        v-for="reply in props.replies"
-        :key="reply.id"
-        :name="reply.user.username"
-        :image="reply.user.image.webp"
-        :date="reply.createdAt"
-        :score="reply.score"
-        :content="reply.content"
-        @addCounter="addCounter($event)"
-      />
     </div>
   </div>
 </template>
 
-<script setup>
-defineEmits(["addCounter"]);
-const props = defineProps({
-  name: String,
-  image: String,
-  date: String,
-  score: Number,
-  content: String,
-  replies: Array,
-  id: Number,
-});
-</script>
 <style scoped lang="sass">
 .main-container
-  width: min(90vw, 800px)
+  // width: min(90vw, 800px)
   background: hsl(0, 0%, 100%)
   margin: 1rem auto
   border-radius: 10px
@@ -146,23 +138,6 @@ const props = defineProps({
   gap: 1rem
   grid-column: 2/4
 
-.replySection
-  margin-inline: auto
-  width: min(90vw, 800px)
-
-.vl
-  border-left: 3px solid hsl(223, 19%, 93%)
-  padding-left: 20px
-  width: fit-content
-  // margin-left: auto
-
-.vl > *
-  width: 100%
-  // margin: 1rem 10px 1rem auto
-  // margin-left: auto
-
-
-
 
 @media(min-width:800px)
 
@@ -186,9 +161,6 @@ const props = defineProps({
     grid-column: 2/4
     grid-row: 2/4
 
-  .vl
-    margin-left: 30px
-    padding-left:30px
 
   .delete-edit
     grid-column: 3/4
