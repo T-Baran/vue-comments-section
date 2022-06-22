@@ -12,12 +12,13 @@ const props = defineProps({
 </script>
 <template>
   <div class="container">
-    <PostComponent :comment="comment" />
+    <PostComponent :comment="props.comment" :commentId="props.comment.id" />
     <div class="reply">
       <PostComponent
-        v-for="reply in comment.replies"
+        v-for="reply in props.comment.replies"
         :key="reply.id"
         :comment="reply"
+        :commentId="props.comment.id"
       />
     </div>
   </div>

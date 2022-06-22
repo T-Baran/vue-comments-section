@@ -12,7 +12,10 @@ const state = reactive({
 
 const props = defineProps({
   comment: Object,
+  commentId: Number,
 });
+console.log(props.comment.id);
+console.log(props.commentId);
 console.log(state.wasAdded);
 </script>
 
@@ -28,11 +31,15 @@ console.log(state.wasAdded);
     </p>
 
     <div class="counter">
-      <button @click="commentsStore.addCounter(props.comment.id)">
+      <button
+        @click="commentsStore.addCounter(props.comment.id, props.commentId)"
+      >
         <img src="\src\images\icon-plus.svg" alt="" />
       </button>
       <p>{{ props.comment.score }}</p>
-      <button>
+      <button
+        @click="commentsStore.subCounter(props.comment.id, props.commentId)"
+      >
         <img src="\src\images\icon-minus.svg" alt="" />
       </button>
     </div>

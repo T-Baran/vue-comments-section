@@ -46,7 +46,7 @@ const commentsStore = useCommentsStore();
 
 <template>
   <Comments
-    v-for="comment in commentsStore.comments"
+    v-for="comment in commentsStore.comments.comments"
     :key="comment.id"
     :comment="comment"
   />
