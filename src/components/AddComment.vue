@@ -1,18 +1,21 @@
 <script setup>
 import { reactive } from "vue";
-import { useCurrentUserStore } from "../store/currentUser";
+import { useCommentsStore } from "../store/comments";
 
-const currentUserStore = useCurrentUserStore();
-
-defineEmits(["addPost"]);
-
-const props = defineProps({
-  image: String,
-});
+const commentStore = useCommentsStore();
 
 const state = reactive({
   text: "",
 });
+
+const props = defineProps({
+  route: String,
+  commentId: Number,
+});
+
+function print(text) {
+  console.log(text);
+}
 </script>
 
 <template>
@@ -26,11 +29,14 @@ const state = reactive({
       ></textarea>
     </div>
 
-    <img :src="currentUserStore.getImage(currentUserStore.image.webp)" alt="" />
+    <img
+      :src="commentStore.getImage(commentStore.currentUser.image.webp)"
+      alt=""
+    />
     <button
       @click="
-        $emit('addPost', state.text);
-        state.text = '';
+        commentStore.curAddPost(state.text, props.route, props.commentId),
+          (state.text = '')
       "
     >
       SEND
@@ -41,7 +47,7 @@ const state = reactive({
 <style scoped lang="sass">
 
 .main-container
-  width: min(90vw, 800px)
+
   background: hsl(0, 0%, 100%)
   margin: 1rem auto
   border-radius:10px

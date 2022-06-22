@@ -45,15 +45,28 @@ const commentsStore = useCommentsStore();
 </script>
 
 <template>
-  <Comments
-    v-for="comment in commentsStore.comments.comments"
-    :key="comment.id"
-    :comment="comment"
-  />
-  <AddComment
-    :image="url.currentUser.image.webp"
-    @addPost="createPost($event)"
-  />
+  <div class="container">
+    <Comments
+      v-for="comment in commentsStore.comments.comments"
+      :key="comment.id"
+      :comment="comment"
+    />
+
+    <AddComment :route="'main'" />
+  </div>
 </template>
 
-<style></style>
+<style lang="sass">
+.container
+  width: min(90vw, 800px)
+  margin-inline: auto
+
+//   .reply
+//   border-left: 3px solid  hsl(223, 19%, 93%)
+//   padding-left: 1rem
+
+// @media(min-width:800px)
+//   .reply
+//     margin-left: 2rem
+//     padding-left: 2rem
+</style>

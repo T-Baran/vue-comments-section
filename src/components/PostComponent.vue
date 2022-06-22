@@ -2,21 +2,30 @@
 import { useCommentsStore } from "../store/comments";
 import { reactive } from "vue";
 
-defineEmits(["addCounter"]);
+defineEmits(["replyClicked"]);
 
 const commentsStore = useCommentsStore();
 
 const state = reactive({
-  wasAdded: false,
+  upClicked: false,
 });
 
 const props = defineProps({
   comment: Object,
   commentId: Number,
 });
-console.log(props.comment.id);
-console.log(props.commentId);
-console.log(state.wasAdded);
+
+function upVote() {
+  if (state.upClicked) return;
+  commentsStore.addCounter(props.comment.id, props.commentId);
+  state.upClicked = !state.upClicked;
+}
+function downVote() {
+  if (!state.upClicked) return;
+  commentsStore.subCounter(props.comment.id, props.commentId);
+  state.upClicked = !state.upClicked;
+}
+console.log(props.comment);
 </script>
 
 <template>
@@ -31,19 +40,19 @@ console.log(state.wasAdded);
     </p>
 
     <div class="counter">
-      <button
-        @click="commentsStore.addCounter(props.comment.id, props.commentId)"
-      >
+      <button @click="upVote()">
         <img src="\src\images\icon-plus.svg" alt="" />
       </button>
       <p>{{ props.comment.score }}</p>
-      <button
-        @click="commentsStore.subCounter(props.comment.id, props.commentId)"
-      >
+      <button @click="downVote()">
         <img src="\src\images\icon-minus.svg" alt="" />
       </button>
     </div>
-    <button v-if="props.name !== 'juliusomo'" class="action">
+    <button
+      @click="$emit('replyClicked')"
+      v-if="props.comment.user.username !== commentsStore.currentUser.username"
+      class="action"
+    >
       <img src="\src\images\icon-reply.svg" alt="" />Reply
     </button>
     <div v-else class="delete-edit">
