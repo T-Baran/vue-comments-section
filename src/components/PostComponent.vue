@@ -62,7 +62,10 @@ console.log(props.comment);
       <img src="\src\images\icon-reply.svg" alt="" />Reply
     </button>
     <div v-else class="delete-edit">
-      <button @click="commentsStore.showModal()" class="action delete">
+      <button
+        @click="commentsStore.showModal(commentId, comment.id)"
+        class="action delete"
+      >
         <img src="\src\images\icon-delete.svg" alt="" />Delete
       </button>
       <button class="action">

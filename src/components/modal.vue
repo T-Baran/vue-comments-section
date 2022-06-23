@@ -13,7 +13,9 @@ const commentsStore = useCommentsStore();
       </p>
       <div class="button-selection">
         <button @click="commentsStore.hideModal()">no, cancel</button>
-        <button class="delete">yes, delete</button>
+        <button @click="commentsStore.deletePost()" class="delete">
+          yes, delete
+        </button>
       </div>
     </div>
   </div>

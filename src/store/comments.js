@@ -10,6 +10,10 @@ export const useCommentsStore = defineStore({
     }),
     currentUser: data.currentUser,
     isModalOn: false,
+    deleteData: {
+      parentId: Number,
+      childId: Number,
+    },
   }),
   actions: {
     getImage(url) {
@@ -58,10 +62,26 @@ export const useCommentsStore = defineStore({
       }
       console.log(post);
     },
-    showModal() {
+    showModal(parentId, childId) {
       this.isModalOn = true;
+      this.deleteData.parentId = parentId;
+      this.deleteData.childId = childId;
+      // console.log(this.deleteData.parentId);
+      // console.log(this.deleteData.childId);
     },
     hideModal() {
+      this.isModalOn = false;
+    },
+    deletePost() {
+      this.deleteData.parentId == this.deleteData.childId
+        ? (this.comments.comments = this.comments.comments.filter(
+            (comment) => comment.id !== this.deleteData.parentId
+          ))
+        : (this.comments.comments.find(
+            (comment) => comment.id === this.deleteData.parentId
+          ).replies = this.comments.comments
+            .find((comment) => comment.id === this.deleteData.parentId)
+            .replies.filter((reply) => reply.id !== this.deleteData.childId));
       this.isModalOn = false;
     },
   },
