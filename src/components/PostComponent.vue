@@ -33,6 +33,12 @@ console.log(props.comment);
     <div class="top-container">
       <img :src="commentsStore.getImage(props.comment.user.image.png)" alt="" />
       <p class="name">{{ props.comment.user.username }}</p>
+      <p
+        class="youItem"
+        v-if="props.comment.user.username == commentsStore.currentUser.username"
+      >
+        you
+      </p>
       <p class="date">{{ props.comment.createdAt }}</p>
     </div>
     <p class="text">
@@ -56,7 +62,7 @@ console.log(props.comment);
       <img src="\src\images\icon-reply.svg" alt="" />Reply
     </button>
     <div v-else class="delete-edit">
-      <button class="action delete">
+      <button @click="commentsStore.showModal()" class="action delete">
         <img src="\src\images\icon-delete.svg" alt="" />Delete
       </button>
       <button class="action">
@@ -82,7 +88,7 @@ console.log(props.comment);
   display: flex
   justify-content: start
   align-items: center
-  gap: 1.5rem
+  gap: 1rem
   grid-column: 1/4
   justify-self: left
   align-self: center
@@ -94,6 +100,12 @@ console.log(props.comment);
 
   .name
    font-weight: 500
+
+  .youItem
+    color: white
+    background-color: hsl(238, 40%, 52%)
+    font-weight: 500
+    padding: 3px 6px
 
   .date
     color: hsl(211, 10%, 45%)
@@ -153,6 +165,7 @@ console.log(props.comment);
   justify-content: end
   gap: 1rem
   grid-column: 2/4
+
 
 
 @media(min-width:800px)

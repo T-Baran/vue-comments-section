@@ -39,7 +39,7 @@ const props = defineProps({
     </div>
   </div>
 </template>
-<style lang="sass">
+<style scoped lang="sass">
 .container
   // width: min(90vw, 800px)
   // margin-inline: auto

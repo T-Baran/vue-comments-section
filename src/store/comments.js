@@ -5,15 +5,11 @@ import { ref } from "vue";
 export const useCommentsStore = defineStore({
   id: "comments",
   state: () => ({
-    // comments: data.comments,
-    // currentUser: data.currentUser,
     comments: useLocalStorage("comments", {
       comments: data.comments,
     }),
     currentUser: data.currentUser,
-    // currentUser: useLocalStorage("currentUser", {
-    //   currentUser: data.currentUser,
-    // }),
+    isModalOn: false,
   }),
   actions: {
     getImage(url) {
@@ -61,6 +57,12 @@ export const useCommentsStore = defineStore({
           .replies.push(post);
       }
       console.log(post);
+    },
+    showModal() {
+      this.isModalOn = true;
+    },
+    hideModal() {
+      this.isModalOn = false;
     },
   },
   getters: {},
