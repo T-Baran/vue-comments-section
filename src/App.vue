@@ -19,7 +19,7 @@ const commentsStore = useCommentsStore();
       :comment="comment"
     />
 
-    <AddComment :route="'main'" />
+    <AddComment route="main" />
   </div>
 </template>
 

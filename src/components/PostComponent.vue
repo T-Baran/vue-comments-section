@@ -8,6 +8,8 @@ const commentsStore = useCommentsStore();
 
 const state = reactive({
   upClicked: false,
+  editClicked: false,
+  textArea: props.comment.content,
 });
 
 const props = defineProps({
@@ -16,7 +18,12 @@ const props = defineProps({
 });
 
 function upVote() {
-  if (state.upClicked) return;
+  if (
+    state.upClicked ||
+    props.comment.user.username == commentsStore.currentUser.username
+  )
+    return;
+
   commentsStore.addCounter(props.comment.id, props.commentId);
   state.upClicked = !state.upClicked;
 }
@@ -24,6 +31,12 @@ function downVote() {
   if (!state.upClicked) return;
   commentsStore.subCounter(props.comment.id, props.commentId);
   state.upClicked = !state.upClicked;
+}
+function editUpdate() {
+  if (state.editClicked === true) {
+    commentsStore.editPost(props.comment.id, props.commentId, state.textArea);
+  }
+  state.editClicked = !state.editClicked;
 }
 console.log(props.comment);
 </script>
@@ -41,9 +54,17 @@ console.log(props.comment);
       </p>
       <p class="date">{{ props.comment.createdAt }}</p>
     </div>
-    <p class="text">
-      {{ props.comment.content }}
+    <!-- text  -->
+
+    <p v-if="!state.editClicked" class="text">
+      <span v-if="props.comment.replyingTo != undefined" class="replyTo">
+        {{ props.comment.replyingTo }}</span
+      >
+      {{ state.textArea }}
     </p>
+    <textarea v-else v-model="state.textArea" class="textedit">{{
+      state.textArea
+    }}</textarea>
 
     <div class="counter">
       <button @click="upVote()">
@@ -55,7 +76,7 @@ console.log(props.comment);
       </button>
     </div>
     <button
-      @click="$emit('replyClicked')"
+      @click="$emit('replyClicked', props.comment.user.username)"
       v-if="props.comment.user.username !== commentsStore.currentUser.username"
       class="action"
     >
@@ -68,7 +89,7 @@ console.log(props.comment);
       >
         <img src="\src\images\icon-delete.svg" alt="" />Delete
       </button>
-      <button class="action">
+      <button @click="editUpdate()" class="action">
         <img src="\src\images\icon-edit.svg" alt="" />Edit
       </button>
     </div>
@@ -116,6 +137,21 @@ console.log(props.comment);
 .text
   color: hsl(211, 10%, 45%)
   grid-column: 1/4
+
+.replyTo
+  font-weight: 700
+  color: hsl(238, 40%, 52%)
+
+.replyTo::before
+  content: "@"
+.textedit
+  color: hsl(211, 10%, 45%)
+  grid-column: 1/4
+  background-color: transparent
+  resize: none
+  outline: 1px solid hsl(239, 57%, 85%)
+  border: none
+  border-radius:5px
 
 
 .counter
@@ -193,7 +229,9 @@ console.log(props.comment);
     grid-column: 2/4
     grid-row: 2/4
 
-
+  .textedit
+    grid-column: 2/4
+    grid-row: 2/4
   .delete-edit
     grid-column: 3/4
 </style>

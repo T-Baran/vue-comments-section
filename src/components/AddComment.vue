@@ -4,18 +4,20 @@ import { useCommentsStore } from "../store/comments";
 
 const commentStore = useCommentsStore();
 
-const state = reactive({
-  text: "",
-});
-
 const props = defineProps({
   route: String,
   commentId: Number,
+  replyTo: String,
+});
+
+const state = reactive({
+  text: "",
 });
 
 function print(text) {
   console.log(text);
 }
+console.log(props.replyTo);
 </script>
 
 <template>
@@ -26,7 +28,8 @@ function print(text) {
         rows="3"
         placeholder="Add a comment..."
         v-model="state.text"
-      ></textarea>
+      >
+      </textarea>
     </div>
 
     <img
@@ -35,8 +38,14 @@ function print(text) {
     />
     <button
       @click="
-        commentStore.curAddPost(state.text, props.route, props.commentId),
-          (state.text = '')
+        commentStore.curAddPost(
+          state.text,
+          props.route,
+          props.commentId,
+          props.replyTo
+        ),
+          (state.text = ''),
+          $emit('sendClicked')
       "
     >
       SEND
@@ -56,6 +65,7 @@ function print(text) {
   grid-template-columns: 1fr 7fr 2fr
   grid-template-rows: 3fr 2fr
   row-gap: 1rem
+
 
 
 

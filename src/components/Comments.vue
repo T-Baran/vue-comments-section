@@ -8,12 +8,18 @@ const commentsStore = useCommentsStore();
 
 const state = reactive({
   replyClick: false,
+  replyTo: "",
 });
 
 const props = defineProps({
   comment: Object,
   id: Number,
 });
+
+function updateReply(username) {
+  state.replyTo = username;
+  state.replyClick = !state.replyClick;
+}
 // console.log(props.comment.content);
 </script>
 <template>
@@ -21,7 +27,7 @@ const props = defineProps({
     <PostComponent
       :comment="props.comment"
       :commentId="props.comment.id"
-      @replyClicked="state.replyClick = !state.replyClick"
+      @replyClicked="updateReply($event)"
     />
     <div class="reply">
       <PostComponent
@@ -29,12 +35,14 @@ const props = defineProps({
         :key="reply.id"
         :comment="reply"
         :commentId="props.comment.id"
-        @replyClicked="state.replyClick = !state.replyClick"
+        @replyClicked="updateReply($event)"
       />
       <AddComment
         v-if="state.replyClick"
-        :route="reply"
+        route="reply"
         :commentId="props.comment.id"
+        :replyTo="state.replyTo"
+        @sendClicked="state.replyClick = false"
       />
     </div>
   </div>

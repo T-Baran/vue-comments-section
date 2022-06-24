@@ -35,13 +35,14 @@ export const useCommentsStore = defineStore({
             .find((comment) => comment.id === parrentId)
             .replies.find((reply) => reply.id === childId).score--;
     },
-    curAddPost(text, route, id) {
+    curAddPost(text, route, id, replyTo = null) {
       if (text.length == 0) return;
       console.log(text);
       console.log(this.comments.comments);
       let post = {
         id: Math.floor(Math.random() * 10000),
         content: text,
+        replyingTo: replyTo,
         createdAt: "Now",
         score: 0,
         user: {
@@ -83,6 +84,15 @@ export const useCommentsStore = defineStore({
             .find((comment) => comment.id === this.deleteData.parentId)
             .replies.filter((reply) => reply.id !== this.deleteData.childId));
       this.isModalOn = false;
+    },
+    editPost(childId, parentId, content) {
+      childId === parentId
+        ? (this.comments.comments.find(
+            (comment) => comment.id === parentId
+          ).content = content)
+        : (this.comments.comments
+            .find((comment) => comment.id === parentId)
+            .replies.find((reply) => reply.id === childId).content = content);
     },
   },
   getters: {},
