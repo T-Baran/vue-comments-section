@@ -45,6 +45,7 @@ export const useCommentsStore = defineStore({
         replyingTo: replyTo,
         createdAt: "Now",
         score: 0,
+
         user: {
           image: {
             png: this.currentUser.image.png,

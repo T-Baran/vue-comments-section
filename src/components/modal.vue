@@ -36,33 +36,40 @@ const commentsStore = useCommentsStore();
   justify-content: center
   align-items: center
 
-  .box
-    width: min(90vw, 400px)
-    background-color: #fff
-    color: hsl(211, 10%, 45%)
-    padding: 2rem
+.box
+  width: min(90vw, 400px)
+  background-color: #fff
+  color: hsl(211, 10%, 45%)
+  padding: 2rem
+  border-radius: 10px
+
+  h2
+    margin-bottom: 1rem
+  p
+    line-height: 1.5rem
+    margin-bottom: 1rem
+
+.button-selection
+  width: 100%
+  display: flex
+  justify-content: space-between
+  align-content: center
+
+  button
+    padding: 0.75rem 0.75rem
+    font-size: 18px
+    color: white
     border-radius: 10px
+    background-color: #777
+    border: none
+    text-transform: uppercase
+  .delete
+    background-color: hsl(358, 79%, 66%)
 
-    h2
-      margin-bottom: 1rem
-    p
-      line-height: 1.5rem
-      margin-bottom: 1rem
 
-    .button-selection
-      width: 100%
-      display: flex
-      justify-content: space-between
-      align-content: center
+@media(min-width:800px)
+  .button-selection
 
-      button
-        padding: 1rem 1.5rem
-        font-size: 18px
-        color: white
-        background-color: #777
-        border-radius: 10px
-        border: none
-        text-transform: uppercase
-      .delete
-        background-color: hsl(358, 79%, 66%)
+    button
+      padding: 1rem 1.5rem
 </style>
