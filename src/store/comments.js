@@ -17,7 +17,7 @@ export const useCommentsStore = defineStore({
   }),
   actions: {
     getImage(url) {
-      return "src" + url.slice(1);
+      return url.slice(1);
     },
     addCounter(childId, parrentId) {
       childId === parrentId
