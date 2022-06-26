@@ -5,3 +5,7 @@ This template should help get you started developing with Vue 3 in Vite. The tem
 ## Recommended IDE Setup
 
 - [VS Code](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+
+Made using Frontend Mentor files: https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9
+
+Live view: https://comments-section-t-baran.netlify.app/
