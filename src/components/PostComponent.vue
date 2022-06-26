@@ -65,11 +65,11 @@ function editUpdate() {
     }}</textarea>
 
     <div class="counter">
-      <button @click="upVote()">
+      <button name="Vote up" @click="upVote()">
         <img src="\src\images\icon-plus.svg" alt="" />
       </button>
       <p>{{ props.comment.score }}</p>
-      <button @click="downVote()">
+      <button name="Vote down" @click="downVote()">
         <img src="\src\images\icon-minus.svg" alt="" />
       </button>
     </div>
