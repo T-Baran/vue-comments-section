@@ -22,7 +22,7 @@ const commentsStore = useCommentsStore();
 </template>
 <style scoped lang="sass">
 .modal-container
-  // display: none
+
   position: fixed
   z-index: 1
   left: 0

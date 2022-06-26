@@ -4,7 +4,7 @@ import PostComponent from "./PostComponent.vue";
 import AddComment from "./AddComment.vue";
 import { reactive } from "vue";
 
-const commentsStore = useCommentsStore();
+// const commentsStore = useCommentsStore();
 
 const state = reactive({
   replyClick: false,
@@ -20,7 +20,6 @@ function updateReply(username) {
   state.replyTo = username;
   state.replyClick = !state.replyClick;
 }
-// console.log(props.comment.content);
 </script>
 <template>
   <div class="container">
@@ -48,9 +47,7 @@ function updateReply(username) {
   </div>
 </template>
 <style scoped lang="sass">
-.container
-  // width: min(90vw, 800px)
-  // margin-inline: auto
+
 
 .reply
   border-left: 3px solid  hsl(223, 19%, 93%)

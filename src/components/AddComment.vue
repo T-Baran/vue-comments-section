@@ -13,11 +13,6 @@ const props = defineProps({
 const state = reactive({
   text: "",
 });
-
-function print(text) {
-  console.log(text);
-}
-console.log(props.replyTo);
 </script>
 
 <template>

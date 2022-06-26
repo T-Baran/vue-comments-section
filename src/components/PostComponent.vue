@@ -38,7 +38,6 @@ function editUpdate() {
   }
   state.editClicked = !state.editClicked;
 }
-console.log(props.comment);
 </script>
 
 <template>
@@ -54,7 +53,6 @@ console.log(props.comment);
       </p>
       <p class="date">{{ props.comment.createdAt }}</p>
     </div>
-    <!-- text  -->
 
     <p v-if="!state.editClicked" class="text">
       <span v-if="props.comment.replyingTo != undefined" class="replyTo">
@@ -98,7 +96,6 @@ console.log(props.comment);
 
 <style scoped lang="sass">
 .main-container
-  // width: min(90vw, 800px)
   background: hsl(0, 0%, 100%)
   margin: 1rem auto
   border-radius: 10px

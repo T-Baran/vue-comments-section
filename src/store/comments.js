@@ -37,8 +37,6 @@ export const useCommentsStore = defineStore({
     },
     curAddPost(text, route, id, replyTo = null) {
       if (text.length == 0) return;
-      console.log(text);
-      console.log(this.comments.comments);
       let post = {
         id: Math.floor(Math.random() * 10000),
         content: text,
@@ -62,14 +60,11 @@ export const useCommentsStore = defineStore({
           .find((comment) => comment.id === id)
           .replies.push(post);
       }
-      console.log(post);
     },
     showModal(parentId, childId) {
       this.isModalOn = true;
       this.deleteData.parentId = parentId;
       this.deleteData.childId = childId;
-      // console.log(this.deleteData.parentId);
-      // console.log(this.deleteData.childId);
     },
     hideModal() {
       this.isModalOn = false;
